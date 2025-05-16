@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-
+import CardGrid from "../styledComponents/CardGrid.jsx";
 const Dragons = () => {
-  const [Dragons, setDragons] = useState([])
+  const [dragons, setDragons] = useState([])
   useEffect(() => {
     const getDragons = async () =>{
       const dragons = await fetch(
@@ -13,19 +13,14 @@ const Dragons = () => {
     }
 
     getDragons().then((dragons) => setDragons(dragons))
-  })
+  }, [])
   
   return (
     <>
-    <h1>This is the Dragons page</h1>
-    <div>
-      {Dragons.map((c) => (
-        <div key={c.id}>
-        <h2>{c.name}</h2>
-        <img src={c.image_url} alt={c.name}></img>
-        </div>
-      ))}
-    </div>
+      <h1>This is the Dragons page</h1>
+      <div>
+        {<CardGrid elements={dragons} cardType={"Dragon"} />}
+      </div>
     </>
   );
 };

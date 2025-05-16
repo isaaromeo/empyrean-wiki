@@ -1,10 +1,37 @@
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
+  max-width: 100%;
+  margin: 0;
   padding: 2rem;
   text-align: center;
+  font-family: "Andika";
+  background-image: url("./assets/background.png");
+  background-size: cover; /* Añade esto */
+  background-repeat: no-repeat;
+  background-attachment: fixed; /* Opcional para efecto parallax */
+}
+body {
+  margin: 0; /* Elimina márgenes por defecto */
 }
 
+@font-face {
+  font-family: "Andika";
+  src: url("./assets/fonts/Andika-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Forum";
+  src: url("./assets/fonts/Forum/Forum-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Inter";
+  src: url("./assets/fonts/Inter/static/Inter_18pt-Regular.ttf")
+    format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
 .logo {
   height: 6em;
   padding: 1.5em;

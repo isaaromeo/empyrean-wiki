@@ -5,30 +5,31 @@ import Characters from "./components/Characters";
 import Lore from "./components/Lore";
 import './App.css'
 import NavBar from "./components/NavBar";
-import FlexContainer from "./styledcomponents/Card";
+import { ThemeProvider } from "styled-components";
+import { empyreanTheme } from "./theme";
 
 function App() {
 
 
   return (
-    <div>
-      <header>
-        <h1>⚔️Empyrean Archive🐉</h1>
-      </header>
+    <ThemeProvider theme={empyreanTheme}>
+      
       <div>
-        <nav>
-          <NavBar />
-        </nav>
+        <header>
+          <h1>⚔️Empyrean Archive🐉</h1>
+        </header>
+        <div>
+          <nav>
+            <NavBar />
+          </nav>
+        </div>
+        <main>
+          <Outlet></Outlet>
+        </main>
+        <footer>Created by Isa 🧚💻</footer>
       </div>
-      <main>
-        
-          <Outlet>
-            
-          </Outlet>
-        
-      </main>
-      <footer>Created by Isa 🧚💻</footer>
-    </div>
+
+    </ThemeProvider>
   );
   
 }

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-
+import CardGrid from "../styledComponents/CardGrid.jsx";
 const Characters = () => {
   const [characters, setCharacters] = useState([])
   useEffect(() => {
@@ -13,19 +13,17 @@ const Characters = () => {
     }
 
     getCharacters().then((characters) => setCharacters(characters))
-  })
+  }, [])
   
   return (
     <>
-    <h1>This is the characters page</h1>
-    <div>
-      {characters.map((c) => (
-        <div key={c.id}>
-        <h2>{c.name}</h2>
-        <img src={c.image_url} alt={c.name}></img>
-        </div>
-      ))}
-    </div>
+      <h1>This is the characters page</h1>
+      <div>
+        {/* {characters.map((character) => (
+          <CharacterCard key={character._id} character={character} />
+        ))} */
+        <CardGrid elements={characters} cardType={"Character"} />}
+      </div>
     </>
   );
 };
