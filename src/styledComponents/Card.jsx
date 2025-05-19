@@ -28,7 +28,7 @@ const CardTitle = styled.h3`
   border-bottom: 1px solid ${({ theme }) => theme.borderColor};
 `;
 
-const DragonImage = styled.img`
+const CardImage = styled.img`
   width: 100%;
   height: 300px;
   object-fit: cover;
@@ -36,15 +36,17 @@ const DragonImage = styled.img`
   border-bottom: 1px solid ${({ theme }) => theme.borderColor};
 `;
 
-const InfoTable = styled.table`
+const CardTable = styled.table`
   width: 100%;
   border-collapse: collapse;
   font-size: 0.8rem;
+  background-color: ${({ theme }) => theme.cardBackground};
 `;
 
+
 const TableRow = styled.tr`
-  &:nth-child(even) {
-    background-color: ${({ theme }) => theme.tableEvenRow};
+  &:nth-child(odd) {
+    background-color: ${({ theme }) => theme.tableOddRow};
   }
 `;
 
@@ -98,71 +100,89 @@ const CompactListItem = styled.li`
   margin-bottom: 4px;
 `;
 
-const DragonCard = ({ dragon }) => {
+const Card = ({ element, cardType}) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate(`/dragons/${dragon._id}`);
+    navigate(`/${cardType.toLowerCase}s/${element._id}`);
   };
+  
+    
 
-  const formatArray = (array) => {
-    if (!array || array.length === 0) return "None";
-    return (
-      <CompactList>
-        {array.map((item, index) => (
-          <CompactListItem key={index}>{item}</CompactListItem>
-        ))}
-      </CompactList>
-    );
-  };
+    const formatArray = (array) => {
+      if (!array || array.length === 0) return "None";
+      return (
+        <CompactList>
+          {array.map((item, index) => (
+            <CompactListItem key={index}>{item}</CompactListItem>
+          ))}
+        </CompactList>
+      );
+    };
+                                                                                                                                                                                                                                    
+     const cardInfo =
+       cardType === "Dragon"
+         ? {
+             Age: element.age,
+             Status: (
+               <>
+                 <StatusIndicator status={element.status} />
+                 {element.status}
+               </>
+             ),
+             Color: (
+               <>
+                 <ColorIndicator color={element.color} />
+                 {element.color}
+               </>
+             ),
+             "Tail Type": element.tail,
+             Location: element.location,
+             "Bonded Rider": element.bonded_rider || "None",
+             "Appears In": formatArray(element.appearances),
+           }
+         : {
+             Age: element.age,
+             Status: (
+               <>
+                 <StatusIndicator status={element.status} />
+                 {element.status}
+               </>
+             ),
+             Location: element.location,
+             Role: element.role,
+             Dragons: formatArray(element.dragon),
+             Occupation: formatArray(element.occupation),
+             "Appears in": formatArray(element.appearances),
+           };
 
-  const dragonInfo = {
-    Age: dragon.age,
-    Status: (
-      <>
-        <StatusIndicator status={dragon.status} />
-        {dragon.status}
-      </>
-    ),
-    Color: (
-      <>
-        <ColorIndicator color={dragon.color} />
-        {dragon.color}
-      </>
-    ),
-    "Tail Type": dragon.tail,
-    Location: dragon.location,
-    "Bonded Rider": dragon.bonded_rider || "None",
-    "Appears In": formatArray(dragon.appearances),
-    "Notable Quotes":
-      dragon.quotes?.length > 0
-        ? `"${dragon.quotes[0].quote}" (${dragon.quotes[0].book})`
-        : "None",
-  };
+
+  
+  
 
   return (
     <CardContainer onClick={handleClick}>
-      <CardTitle>{dragon.name}</CardTitle>
-      <DragonImage
-        src={dragon.image_url}
-        alt={dragon.name}
+      <CardTitle>{element.name}</CardTitle>
+      <CardImage
+        src={element.image_url}
+        alt={element.name}
         onError={(e) => {
           e.target.src =
             "https://via.placeholder.com/320x250?text=Dragon+Image";
         }}
       />
-      <InfoTable>
+      <CardTable>
         <tbody>
-          {Object.entries(dragonInfo).map(([key, value]) => (
+          {Object.entries(cardInfo).map(([key, value]) => (
             <TableRow key={key}>
               <KeyCell>{key}</KeyCell>
               <ValueCell>{value}</ValueCell>
             </TableRow>
           ))}
         </tbody>
-      </InfoTable>
+      </CardTable>
     </CardContainer>
   );
 };
 
-export default DragonCard;
+export default Card;

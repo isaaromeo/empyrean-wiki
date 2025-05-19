@@ -18,7 +18,7 @@ const Dragons = () => {
   return (
     <>
       <div>
-        {<CardGrid elements={dragons} cardType={"Dragon"} />}
+        {<CardGrid cards={dragons} cardType={"Dragon"} />}
       </div>
     </>
   );

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import CardGrid from "../styledComponents/CardGrid.jsx";
+
 const Characters = () => {
   const [characters, setCharacters] = useState([])
   useEffect(() => {
@@ -21,7 +22,7 @@ const Characters = () => {
         {/* {characters.map((character) => (
           <CharacterCard key={character._id} character={character} />
         ))} */
-        <CardGrid elements={characters} cardType={"Character"} />}
+        <CardGrid cards={characters} cardType={"Character"} />}
       </div>
     </>
   );

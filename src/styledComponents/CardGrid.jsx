@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import CharacterCard from "./CharacterCard.jsx";
-import DragonCard from "./DragonCard.jsx";
+import Card from "./Card.jsx";
+
 
 const GridContainer = styled.div`
   display: grid;
@@ -16,16 +16,12 @@ const GridContainer = styled.div`
   );
 `;
 
-const CardGrid = ({ elements, cardType }) => {
+const CardGrid = ({cards, cardType}) => {
   return (
     <GridContainer>
-      {console.log(elements)}
-      {cardType === "Character"
-      ? elements.map((e) => (
-        <CharacterCard character={e}/>))
-      : elements.map((e) => (
-        <DragonCard dragon={e} />
-      ))}
+      {cards.map((c) => (
+        <Card element={c} cardType={cardType}/>))
+      }
     </GridContainer>
   );
 };
