@@ -7,16 +7,23 @@ import './App.css'
 import NavBar from "./components/NavBar";
 import { ThemeProvider } from "styled-components";
 import { empyreanTheme } from "./theme";
+import dragonIcon1 from "./assets/icons/dragon_icon1.png";
+import dragonIcon2 from "./assets/icons/dragon_icon2.png";
 
 function App() {
 
 
   return (
     <ThemeProvider theme={empyreanTheme}>
-      
       <div>
-        <header>
-          <h1>⚔️Empyrean Archive🐉</h1>
+        <header className="header">
+          <img
+            src={dragonIcon2}
+            alt="dragon icon"
+            className="dragon-icon"
+          />
+          <h1 className="pageTitle">Empyrean Archive</h1>
+          <img src={dragonIcon1} alt="dragon icon" className="dragon-icon" />
         </header>
         <div>
           <nav>
@@ -28,7 +35,6 @@ function App() {
         </main>
         <footer>Created by Isa 🧚💻</footer>
       </div>
-
     </ThemeProvider>
   );
   

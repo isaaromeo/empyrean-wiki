@@ -39,7 +39,7 @@ const DragonImage = styled.img`
 const InfoTable = styled.table`
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.95rem;
+  font-size: 0.8rem;
 `;
 
 const TableRow = styled.tr`
@@ -52,8 +52,7 @@ const KeyCell = styled.td`
   padding: 10px 12px;
   font-weight: bold;
   color: ${({ theme }) => theme.primaryText};
-  width: 35%;
-  vertical-align: top;
+  width: 30%;
   border-bottom: 1px solid ${({ theme }) => theme.borderColor};
 `;
 

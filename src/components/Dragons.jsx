@@ -17,7 +17,6 @@ const Dragons = () => {
   
   return (
     <>
-      <h1>This is the Dragons page</h1>
       <div>
         {<CardGrid elements={dragons} cardType={"Dragon"} />}
       </div>

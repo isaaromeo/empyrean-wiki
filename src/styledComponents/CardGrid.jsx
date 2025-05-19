@@ -8,6 +8,12 @@ const GridContainer = styled.div`
   gap: 24px;
   padding: 20px;
   justify-items: center;
+  background: linear-gradient(
+    90deg,
+    rgba(82, 71, 94, 0.76) 0%,
+    rgba(72, 60, 84, 0.24) 49%,
+    rgba(93, 83, 102, 0) 100%
+  );
 `;
 
 const CardGrid = ({ elements, cardType }) => {

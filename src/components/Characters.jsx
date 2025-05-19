@@ -17,7 +17,6 @@ const Characters = () => {
   
   return (
     <>
-      <h1>This is the characters page</h1>
       <div>
         {/* {characters.map((character) => (
           <CharacterCard key={character._id} character={character} />
