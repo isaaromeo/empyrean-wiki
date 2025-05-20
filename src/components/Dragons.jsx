@@ -1,26 +1,16 @@
-import React, { useEffect, useState } from "react";
+import { useApiData } from "../hooks/useApiData";
 import CardGrid from "../styledComponents/CardGrid.jsx";
+
 const Dragons = () => {
-  const [dragons, setDragons] = useState([])
-  useEffect(() => {
-    const getDragons = async () =>{
-      const dragons = await fetch(
-        "https://empyrean-api.onrender.com/api/dragons"
-      );
+  const dragons = useApiData(
+    "https://empyrean-api.onrender.com/api/dragons",
+    "dragons"
+  );
 
-      const dragonsJson = await dragons.json()
-      return dragonsJson
-    }
-
-    getDragons().then((dragons) => setDragons(dragons))
-  }, [])
-  
   return (
-    <>
-      <div>
-        {<CardGrid cards={dragons} cardType={"Dragon"} />}
-      </div>
-    </>
+    <div>
+      <CardGrid cards={dragons} cardType="Dragon" />
+    </div>
   );
 };
 
