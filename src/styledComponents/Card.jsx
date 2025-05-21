@@ -104,7 +104,7 @@ const Card = ({ element, cardType}) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate(`/${cardType.toLowerCase}s/${element._id}`);
+    navigate(`/${cardType.toLowerCase()}s/${element._id}`);
   };
   
     

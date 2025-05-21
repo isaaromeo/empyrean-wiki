@@ -8,6 +8,8 @@ import Home from "./components/Home.jsx";
 import Lore from './components/Lore.jsx';
 import Dragons from "./components/Dragons.jsx";
 import NotFound from "./components/NotFound.jsx";
+import CharacterDetail from "./components/CharacterDetail.jsx";
+import DragonDetail from "./components/DragonDetail.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -18,7 +20,8 @@ createRoot(document.getElementById("root")).render(
           <Route path="characters" element={<Characters />}></Route>
           <Route path="dragons" element={<Dragons />}></Route>
           <Route path="lore" element={<Lore />}></Route>
-          <Route path="character/:id" element={<Characters />}></Route>
+          <Route path="characters/:id" element={<CharacterDetail />}></Route>
+          <Route path="dragons/:id" element={<DragonDetail />}></Route>
           <Route path="*" element={<NotFound />}></Route>
         </Route>
       </Routes>
