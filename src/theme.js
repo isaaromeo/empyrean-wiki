@@ -10,4 +10,10 @@ export const empyreanTheme = {
   deceasedColor: "#f87171",
   unknownColor: "#bb9dee",
   iridColor: "#bb9dee",
+  accentColor: "#ff9e80",
+  tagBackground: "rgba(255, 158, 128, 0.2)",
+  tagText: "#ff9e80",
+  sectionTitle: "#f8bbd0",
+  signetBackground: "rgba(0, 0, 0, 0.3)",
+  quoteBackground: "rgba(0, 0, 0, 0.2)",
 };

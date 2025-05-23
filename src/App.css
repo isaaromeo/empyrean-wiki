@@ -5,12 +5,12 @@
   text-align: center;
   font-family: "Andika";
   background-image: url("./assets/background.png");
-  background-size: cover; /* Añade esto */
+  background-size: cover;
   background-repeat: no-repeat;
-  background-attachment: fixed; /* Opcional para efecto parallax */
+  background-attachment: fixed;
 }
 body {
-  margin: 0; /* Elimina márgenes por defecto */
+  margin: 0;
 }
 
 @font-face {

@@ -12,6 +12,7 @@ const NavContainer = styled.nav`
   padding: 1rem 2rem;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
   position: sticky;
+  border-radius: 5px;
   top: 0;
   z-index: 100;
 `;
@@ -51,8 +52,9 @@ const StyledNavLink = styled(NavLink)`
   &:hover {
     color: rgb(218, 213, 203);
     background: linear-gradient(
-      0deg,
-      rgba(181, 173, 80, 0.29) 0%,
+      1deg,
+      rgba(163, 131, 95, 0.38) 0%,
+      rgba(176, 150, 94, 0.04) 49%,
       rgba(189, 169, 92, 0) 100%
     );
     transform: translateY(-2px);
@@ -61,11 +63,11 @@ const StyledNavLink = styled(NavLink)`
   &.active {
     color: rgb(218, 213, 203);
     background: linear-gradient(
-      0deg,
-      rgba(181, 173, 80, 0.29) 0%,
+      1deg,
+      rgba(163, 131, 95, 0.38) 0%,
+      rgba(176, 150, 94, 0.04) 49%,
       rgba(189, 169, 92, 0) 100%
     );
-
     &::after {
       content: "";
       position: absolute;
@@ -74,7 +76,7 @@ const StyledNavLink = styled(NavLink)`
       transform: translateX(-50%);
       width: 60%;
       height: 3px;
-      background: rgb(212, 183, 103);
+      background: rgba(212, 174, 103, 0.58);
       border-radius: 3px;
     }
   }

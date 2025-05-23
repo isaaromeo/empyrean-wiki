@@ -8,8 +8,8 @@ import Home from "./components/Home.jsx";
 import Lore from './components/Lore.jsx';
 import Dragons from "./components/Dragons.jsx";
 import NotFound from "./components/NotFound.jsx";
-import CharacterDetail from "./components/CharacterDetail.jsx";
-import DragonDetail from "./components/DragonDetail.jsx";
+import CharacterDetail from "./components/CharacterDetail2.jsx";
+import DragonDetail from "./components/DragonDetail2.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
