@@ -18,15 +18,20 @@ const DetailContainer = styled.div`
 
 const CharacterInfoContainer = styled.div`
   width: 40%;
-  max-height:450px;
+  max-height: 450px;
   min-with: 450px;
   margin: 6px;
   display: flex;
-  justify-content:center;
+  justify-content: center;
   background: ${({ theme }) => theme.cardBackground};
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(54, 43, 65, 0.81);
-  
+  @media (max-width: 1500px) {
+    width: 85%;
+  }
+  @media (max-width: 550px) {
+    width: 95%;
+  }
 `;
 
 const CharacterHeader = styled.div`
@@ -34,8 +39,11 @@ const CharacterHeader = styled.div`
   justify-content: space-around;
   gap: 2rem;
   margin-bottom: 2rem;
-  @media (max-width: 768px) {
+  @media (max-width: 950px) {
     flex-direction: column;
+    align-items: center; /* Añade esto para centrar horizontalmente */
+    justify-content: center; /* Añade esto para centrar verticalmente */
+    gap: 1rem;
   }
 `;
 
@@ -46,26 +54,28 @@ const CharacterImage = styled.img`
   border-radius: 8px;
   border: 2px solid ${({ theme }) => theme.borderColor};
 
-  @media (max-width: 768px) {
-    width: 100%;
+  @media (max-width: 950px) {
+    width: 95%;
     height: auto;
   }
+    
 `;
 const DragonImage = styled.img`
-  width: 350px;
-  height: 450px;
-  object-fit: cover;
-  border-radius: 8px;
-  border: 2px solid ${({ theme }) => theme.borderColor};
-
-  @media (max-width: 768px) {
-    width: 100%;
-    height: auto;
+  display:none;
+  @media (min-width: 1500px) {
+    display:block;
+    width: 350px;
+    height: 450px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 2px solid ${({ theme }) => theme.borderColor};
   }
 `;
 
 const CharacterInfo = styled.div`
   width: 100%;
+  height:auto;
+  
 `;
 const TitleContainer = styled.div`
   margin-bottom: 2rem;
@@ -77,17 +87,23 @@ const TitleContainer = styled.div`
 const CharacterName = styled.h1`
   font-size: 2.3rem;
   margin: 0;
-  justify-self:center;
+  justify-self: center;
   color: ${({ theme }) => theme.primaryText};
-  
+  @media (max-width: 550px) {
+    font-size: 2rem;
+  }
+  @media (max-width: 390px) {
+    font-size: 1.5rem;
+  }
 `;
 
 const CharacterMeta = styled.div`
   display: flex;
-  gap: 1rem;
-  margin: 1rem;
+  gap: 0.5rem;
+  margin: 0.5rem;
   flex-wrap: wrap;
   justify-content: center;
+  overflow-x: hidden;
 `;
 
 const MetaItem = styled.span`
@@ -96,10 +112,18 @@ const MetaItem = styled.span`
   border-radius: 20px;
   font-size: 0.9rem;
   color: ${({ theme }) => theme.tagText};
+  @media (max-width: 550px) {
+    font-size: 0.8rem;
+    padding: 0.2rem 0.7rem;
+    border-radius: 20px;
+  }
 `;
 
 const Section = styled.section`
   margin-bottom: 2rem;
+  @media (max-width: 550px) {
+    margin-bottom: 1rem;
+  }
 `;
 
 const SectionTitle = styled.h2`
@@ -108,6 +132,9 @@ const SectionTitle = styled.h2`
   color: ${({ theme }) => theme.sectionTitle};
   border-bottom: 2px solid ${({ theme }) => theme.borderColor};
   padding-bottom: 0.5rem;
+  @media (max-width: 550px) {
+    margin-bottom: 0.7rem;
+  }
 `;
 
 const BioParagraph = styled.p`
@@ -258,22 +285,22 @@ const CharacterDetail = () => {
             {character.dragon.length > 0 && (
               <Section>
                 <SectionTitle>Dragons</SectionTitle>
-                <TagList>
+                <CharacterMeta>
                   {character.dragon.map((dragonName) => (
-                    <Tag key={dragonName}>{dragonName}</Tag>
+                    <MetaItem key={dragonName}>{dragonName}</MetaItem>
                   ))}
-                </TagList>
+                </CharacterMeta>
               </Section>
             )}
 
             {occupation.length > 0 && (
               <Section>
                 <SectionTitle>Occupation</SectionTitle>
-                <TagList>
+                <CharacterMeta>
                   {occupation.map((job) => (
-                    <Tag key={job}>{job}</Tag>
+                    <MetaItem key={job}>{job}</MetaItem>
                   ))}
-                </TagList>
+                </CharacterMeta>
               </Section>
             )}
           </CharacterInfo>

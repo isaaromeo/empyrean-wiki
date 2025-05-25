@@ -1,54 +1,108 @@
 import styled from "styled-components";
-import { useElemInfo } from "../hooks/useElemInfo";
+import { useCharacterWithDragon } from "../hooks/useCharacterWithDragon";
+import { useDragonWithCharacter } from "../hooks/useDragonWithCharacter";
+
 
 // Componentes de estilo
 const DetailContainer = styled.div`
-  max-width: 1200px;
-  margin: 2rem auto;
+  width: 85%;
+  max-width: 1400px;
+  justify-self:center;
+  margin: 2rem;
   padding: 2rem;
   background: ${({ theme }) => theme.cardBackground};
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 `;
 
+const DragonInfoContainer = styled.div`
+  width: 40%;
+  max-height: 450px;
+  min-with: 450px;
+  margin: 6px;
+  display: flex;
+  justify-content: center;
+  background: ${({ theme }) => theme.cardBackground};
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(54, 43, 65, 0.81);
+  @media (max-width: 1500px) {
+    width: 85%;
+  }
+  @media (max-width: 550px) {
+    width: 95%;
+  }
+`;
+
 const DragonHeader = styled.div`
   display: flex;
+  justify-content: space-around;
   gap: 2rem;
   margin-bottom: 2rem;
-
-  @media (max-width: 768px) {
+  @media (max-width: 950px) {
     flex-direction: column;
+    align-items: center; /* Añade esto para centrar horizontalmente */
+    justify-content: center; /* Añade esto para centrar verticalmente */
+    gap: 1rem;
   }
 `;
 
 const DragonImage = styled.img`
-  width: 300px;
-  height: 400px;
+  width: 330px;
+  height: 450px;
   object-fit: cover;
   border-radius: 8px;
   border: 2px solid ${({ theme }) => theme.borderColor};
 
-  @media (max-width: 768px) {
-    width: 100%;
+  @media (max-width: 950px) {
+    width: 95%;
     height: auto;
+  }
+    
+`;
+const CharacterImage = styled.img`
+  display:none;
+  @media (min-width: 1500px) {
+    display:block;
+    width: 350px;
+    height: 450px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 2px solid ${({ theme }) => theme.borderColor};
   }
 `;
 
 const DragonInfo = styled.div`
-  flex: 1;
+  width: 100%;
+  height:auto;
+  
 `;
-
+const TitleContainer = styled.div`
+  margin-bottom: 2rem;
+  padding: 0.5rem;
+  border-radius: 8px;
+  background: ${({ theme }) => theme.quoteBackground};
+  box-shadow: 0 4px 6px rgba(51, 44, 58, 0.62);
+`;
 const DragonName = styled.h1`
-  font-size: 2.5rem;
-  margin-bottom: 0.5rem;
+  font-size: 2.3rem;
+  margin: 0;
+  justify-self: center;
   color: ${({ theme }) => theme.primaryText};
+  @media (max-width: 550px) {
+    font-size: 2rem;
+  }
+  @media (max-width: 390px) {
+    font-size: 1.5rem;
+  }
 `;
 
 const DragonMeta = styled.div`
   display: flex;
-  gap: 1rem;
-  margin-bottom: 1rem;
+  gap: 0.5rem;
+  margin: 0.5rem;
   flex-wrap: wrap;
+  justify-content: center;
+  overflow-x: hidden;
 `;
 
 const MetaItem = styled.span`
@@ -57,18 +111,29 @@ const MetaItem = styled.span`
   border-radius: 20px;
   font-size: 0.9rem;
   color: ${({ theme }) => theme.tagText};
+  @media (max-width: 550px) {
+    font-size: 0.8rem;
+    padding: 0.2rem 0.7rem;
+    border-radius: 20px;
+  }
 `;
 
 const Section = styled.section`
   margin-bottom: 2rem;
+  @media (max-width: 550px) {
+    margin-bottom: 1rem;
+  }
 `;
 
 const SectionTitle = styled.h2`
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   margin-bottom: 1rem;
   color: ${({ theme }) => theme.sectionTitle};
   border-bottom: 2px solid ${({ theme }) => theme.borderColor};
   padding-bottom: 0.5rem;
+  @media (max-width: 550px) {
+    margin-bottom: 0.7rem;
+  }
 `;
 
 const BioParagraph = styled.p`
@@ -105,16 +170,24 @@ const QuoteCard = styled.div`
 
 const QuoteText = styled.p`
   font-style: italic;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   line-height: 1.6;
   margin-bottom: 0.5rem;
-  quotes: "\\201C""\\201D";
 
   &::before {
     content: open-quote;
-    font-size: 2rem;
+    font-size: 3rem;
     line-height: 0;
-    vertical-align: -0.4em;
+    vertical-align: -0.3em;
+    horizontal-align: -0.3em;
+    color: ${({ theme }) => theme.accentColor};
+  }
+  &::after {
+    content: close-quote;
+    font-size: 3rem;
+    line-height: 0;
+    vertical-align: -0.6em;
+    horizontal-align: -0.3em;
     color: ${({ theme }) => theme.accentColor};
   }
 `;
@@ -128,6 +201,7 @@ const QuoteSource = styled.p`
 const TagList = styled.div`
   display: flex;
   flex-wrap: wrap;
+  justify-content:center;
   gap: 0.5rem;
   margin-bottom: 1rem;
 `;
@@ -151,66 +225,85 @@ const RelationshipItem = styled.div`
 `;
 
 const DragonDetail = () => {
-  const dragon = useElemInfo("dragons");
 
-  if (!dragon) {
-    return <div>Cargando...</div>;
-  }
+  const { dragon, character, loading, error } = useDragonWithCharacter();
 
+  if (loading) return <div>Cargando...</div>;
+  if (error) return <div>Error: {error.message}</div>;
+  if (!character) return <div>Personaje no encontrado</div>;
+  
+  console.log("4", dragon);
   // Valores por defecto para propiedades opcionales
   const {
-
-    occupation = [],
+    color = [],
     bio = [],
-    signet = [],
+    tail = [],
     quotes = [],
     relationships = [],
     appearances = [],
-    image_url = "https://via.placeholder.com/300x400?text=Dragon+Image",
   } = dragon;
+  
+  
+  console.log("5", character);
+  //const dragon2 = dragons.find((d) => d === character.dragon);
+  
 
   return (
     <DetailContainer>
       <DragonHeader>
         <DragonImage
-          src={image_url}
+          src={dragon.image_url}
           alt={dragon.name}
           onError={(e) => {
             e.target.src =
-              "https://via.placeholder.com/300x400?text=Dragon+Image";
+              "https://via.placeholder.com/300x400?text=Character+Image";
           }}
         />
-        <DragonInfo>
-          <DragonName>{dragon.name}</DragonName>
-          <DragonMeta>
-            <MetaItem>Age: {dragon.age}</MetaItem>
-            <MetaItem>Status: {dragon.status || "Unknown"}</MetaItem>
-            <MetaItem>Location: {dragon.location}</MetaItem>
-            <MetaItem>Role: {dragon.role}</MetaItem>
-          </DragonMeta>
+        <DragonInfoContainer>
+          <DragonInfo>
+            <TitleContainer>
+              <DragonName>{dragon.name}</DragonName>
+            </TitleContainer>
+            <DragonMeta>
+              <MetaItem>Age: {dragon.age}</MetaItem>
+              <MetaItem>Status: {dragon.status || "Unknown"}</MetaItem>
+              <MetaItem>Location: {dragon.location}</MetaItem>
+              <MetaItem>Color: {dragon.color}</MetaItem>
+              <MetaItem>Tail: {dragon.tail}</MetaItem>
+            </DragonMeta>
 
-          {dragon.length > 0 && (
-            <Section>
-              <SectionTitle>Dragons</SectionTitle>
-              <TagList>
-                {dragon.map((dragonName) => (
-                  <Tag key={dragonName}>{dragonName}</Tag>
-                ))}
-              </TagList>
-            </Section>
-          )}
+            {dragon.bonded_rider.length > 0 && (
+              <Section>
+                <SectionTitle>Bonded Rider</SectionTitle>
+                <DragonMeta>
+                  <MetaItem key={dragon.bonded_rider}>
+                    {dragon.bonded_rider}
+                  </MetaItem>
+                </DragonMeta>
+              </Section>
+            )}
 
-          {occupation.length > 0 && (
-            <Section>
-              <SectionTitle>Occupation</SectionTitle>
-              <TagList>
-                {occupation.map((job) => (
-                  <Tag key={job}>{job}</Tag>
-                ))}
-              </TagList>
-            </Section>
-          )}
-        </DragonInfo>
+            {dragon.bonded_rider.length > 0 && (
+              <Section>
+                <SectionTitle>Name Meaning</SectionTitle>
+                <DragonMeta>
+                  <MetaItem key={dragon.bonded_rider}>
+                    {dragon.bonded_rider}
+                  </MetaItem>
+                </DragonMeta>
+              </Section>
+            )}
+          </DragonInfo>
+        </DragonInfoContainer>
+
+        <CharacterImage
+          src={character.image_url}
+          alt={"map"}
+          onError={(e) => {
+            e.target.src =
+              "https://via.placeholder.com/300x400?text=Character+Image";
+          }}
+        />
       </DragonHeader>
 
       {bio.length > 0 && (
@@ -218,18 +311,6 @@ const DragonDetail = () => {
           <SectionTitle>Biography</SectionTitle>
           {bio.map((paragraph, index) => (
             <BioParagraph key={`bio-${index}`}>{paragraph}</BioParagraph>
-          ))}
-        </Section>
-      )}
-
-      {signet.length > 0 && (
-        <Section>
-          <SectionTitle>Signet Abilities</SectionTitle>
-          {signet.map((ability, index) => (
-            <SignetCard key={`signet-${index}`}>
-              <SignetName>{ability.name}</SignetName>
-              <SignetDescription>{ability.description}</SignetDescription>
-            </SignetCard>
           ))}
         </Section>
       )}
@@ -251,7 +332,7 @@ const DragonDetail = () => {
           <SectionTitle>Relationships</SectionTitle>
           {relationships.map((rel, index) => (
             <RelationshipItem key={`rel-${index}`}>
-              <span>{rel.Dragon}</span>
+              <span>{rel.character}</span>
               <span>{rel.relationship}</span>
             </RelationshipItem>
           ))}

@@ -12,7 +12,7 @@ export const empyreanTheme = {
   iridColor: "#bb9dee",
   accentColor: "#ff9e80",
   tagBackground: "rgba(255, 158, 128, 0.2)",
-  tagText: "#ff9e80",
+  tagText: "rgba(238, 169, 144, 0.94)",
   sectionTitle: "#f8bbd0",
   signetBackground: "rgba(0, 0, 0, 0.3)",
   quoteBackground: "rgba(0, 0, 0, 0.2)",
