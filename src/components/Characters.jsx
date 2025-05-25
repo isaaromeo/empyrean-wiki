@@ -6,7 +6,7 @@ const Characters = () => {
     "https://empyrean-api.onrender.com/api/characters",
     "characters"
   );
-
+  console.log(characters)
   return (
     <div>
       <CardGrid cards={characters} cardType="Character" />
