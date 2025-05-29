@@ -107,6 +107,11 @@ const Home = () => {
     "dragons"
   );
 
+  const books = useApiData(
+    "https://empyrean-api.onrender.com/api/books",
+    "books"
+  );
+
   // Obtener algunos personajes y dragones destacados
   const featuredCharacters = characters?.slice(0, 3) || [];
   const featuredDragons = dragons?.slice(0, 3) || [];
@@ -199,19 +204,19 @@ const Home = () => {
       <FeaturedSection>
         <Subtitle>Books</Subtitle>
         <FeaturedGrid>
-          {featuredCharacters.map((character) => (
-            <FeaturedItem key={character._id}>
+          {books.map((book) => (
+            <FeaturedItem key={book._id}>
               <FeaturedImage
-                src={character.image_url}
-                alt={character.name}
+                src={book.cover}
+                alt={book.name}
                 onError={(e) => {
                   e.target.src =
                     "https://via.placeholder.com/300x200?text=Character+Image";
                 }}
               />
-              <FeaturedTitle>{character.name}</FeaturedTitle>
-              <p>{character.role}</p>
-              <p>Status: {character.status}</p>
+              <FeaturedTitle>{book.name}</FeaturedTitle>
+              <p>Author:{book.author}</p>
+              <p>Rating: {book.rating}/5</p>
             </FeaturedItem>
           ))}
         </FeaturedGrid>

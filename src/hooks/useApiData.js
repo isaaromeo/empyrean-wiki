@@ -22,8 +22,10 @@ export function useApiData(apiUrl, cacheData) {
         const responseJSON = await response.json();
         if (cacheData === "characters") {
           localStorage.setItem("characters", JSON.stringify(responseJSON));
-        } else {
+        } else if (cacheData === "dragons") {
           localStorage.setItem("dragons", JSON.stringify(responseJSON));
+        } else {
+          localStorage.setItem("books", JSON.stringify(responseJSON));
         }
         setData(responseJSON);
         //return responseJSON;

@@ -94,25 +94,26 @@ const NavBar = () => {
         <ListItem>
           <StyledNavLink to="/" exact activeClassName="active">
             <span>Home</span>
-            
+          </StyledNavLink>
+        </ListItem>
+        <ListItem>
+          <StyledNavLink to="/books" exact activeClassName="active">
+            <span>Books</span>
           </StyledNavLink>
         </ListItem>
         <ListItem>
           <StyledNavLink to="/characters" activeClassName="active">
             <span>Characters</span>
-            
           </StyledNavLink>
         </ListItem>
         <ListItem>
           <StyledNavLink to="/dragons" activeClassName="active">
             <span>Dragons</span>
-            
           </StyledNavLink>
         </ListItem>
         <ListItem>
           <StyledNavLink to="/lore" activeClassName="active">
             <span>Lore</span>
-            
           </StyledNavLink>
         </ListItem>
       </StyledList>
