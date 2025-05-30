@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { useApiData } from "../hooks/useApiData";
+import { useNavigate } from "react-router-dom";
 
 const HomeContainer = styled.div`
   max-width: 1200px;
@@ -79,6 +80,12 @@ const FeaturedItem = styled.div`
   padding: 1.5rem;
   border-radius: 8px;
   border-left: 4px solid ${({ theme }) => theme.accentColor};
+  cursor: pointer;
+  transition: transform 0.2s ease;
+
+  &:hover {
+    transform: scale(1.02);
+  }
 `;
 
 const FeaturedTitle = styled.h3`
@@ -112,6 +119,11 @@ const Home = () => {
     "books"
   );
 
+  const navigate = useNavigate();
+
+  const handleClick = (section, id) => {
+    navigate(`/${section}/${id}`);
+  };
   // Obtener algunos personajes y dragones destacados
   const featuredCharacters = characters?.slice(0, 3) || [];
   const featuredDragons = dragons?.slice(0, 3) || [];
@@ -163,7 +175,10 @@ const Home = () => {
         <Subtitle>Featured Characters</Subtitle>
         <FeaturedGrid>
           {featuredCharacters.map((character) => (
-            <FeaturedItem key={character._id}>
+            <FeaturedItem
+              key={character._id}
+              onClick={() => handleClick("characters", character._id)}
+            >
               <FeaturedImage
                 src={character.image_url}
                 alt={character.name}
@@ -184,7 +199,10 @@ const Home = () => {
         <Subtitle>Featured Dragons</Subtitle>
         <FeaturedGrid>
           {featuredDragons.map((dragon) => (
-            <FeaturedItem key={dragon._id}>
+            <FeaturedItem
+              key={dragon._id}
+              onClick={() => handleClick("dragons", dragon._id)}
+            >
               <FeaturedImage
                 src={dragon.image_url}
                 alt={dragon.name}
@@ -205,7 +223,10 @@ const Home = () => {
         <Subtitle>Books</Subtitle>
         <FeaturedGrid>
           {books.map((book) => (
-            <FeaturedItem key={book._id}>
+            <FeaturedItem
+              key={book._id}
+              onClick={() => handleClick("books", book._id)}
+            >
               <FeaturedImage
                 src={book.cover}
                 alt={book.name}

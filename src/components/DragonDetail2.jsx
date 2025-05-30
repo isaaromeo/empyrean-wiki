@@ -7,10 +7,10 @@ import { useDragonWithCharacter } from "../hooks/useDragonWithCharacter";
 const DetailContainer = styled.div`
   width: 85%;
   max-width: 1400px;
-  justify-self:center;
+  justify-self: center;
   margin: 2rem;
   padding: 2rem;
-  background: ${({ theme }) => theme.cardBackground};
+  background: ${({ theme }) => theme.containerBackground};
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 `;
