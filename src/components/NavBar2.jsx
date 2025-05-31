@@ -15,8 +15,14 @@ const NavContainer = styled.nav`
   position: sticky;
   top: 0;
   z-index: 100;
-  backdrop-filter: blur(5px);
-  border-radius: 15px;
+  border-radius: 10px;
+  max-width: 1200px;
+  margin: 0 auto;
+  overflow-x: auto;
+  @media (max-width: 600px) {
+    
+    padding: 0;
+  }
 `;
 
 const StyledList = styled.ul`
@@ -30,15 +36,15 @@ const StyledList = styled.ul`
   margin: 0 auto;
 
   @media (max-width: 900px) {
-    gap: 1rem;
+    gap: 0.5rem;
     justify-content: space-around;
   }
 
   @media (max-width: 600px) {
-    flex-direction: row;
-    gap: 0.5rem;
-    padding: 0.5rem 0;
-    justify-content: space-around;
+    gap: 0;
+    padding: 0;
+    
+    
   }
 `;
 
@@ -73,37 +79,26 @@ const StyledNavLink = styled(NavLink)`
 
   &:hover {
     color: ${({ theme }) => theme.accentColor};
-    background: rgba(255, 158, 128, 0.1);
+    
   }
 
   &.active {
     color: ${({ theme }) => theme.accentColor};
     background: rgba(255, 158, 128, 0.15);
 
-    &::before {
-      content: "";
-      position: absolute;
-      bottom: -1px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 80%;
-      height: 2px;
-      background: ${({ theme }) => theme.accentColor};
-      border-radius: 2px;
-    }
   }
 
   @media (max-width: 900px) {
     padding: 0.6rem 0.8rem;
-    font-size: 1rem;
+    font-size: 0.8rem;
   }
 
   @media (max-width: 500px) {
     padding: 0.8rem;
     font-size: 0;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
+    border-radius: 25%;
+    width: 30px;
+    height: 30px;
     justify-content: center;
     align-items: center;
 
@@ -111,14 +106,13 @@ const StyledNavLink = styled(NavLink)`
       &::before {
         display: none;
       }
-      background: rgba(255, 158, 128, 0.2);
-      border: 1px solid ${({ theme }) => theme.accentColor};
+      
     }
   }
 `;
 
 const NavText = styled.span`
-  @media (max-width: 500px) {
+  @media (max-width: 700px) {
     display: none;
   }
 `;
@@ -128,6 +122,7 @@ const MobileIcon = styled.div`
   padding-top: 6px;
   @media (max-width: 700px) {
     display: block;
+    font-size: 1rem;
   }
 `;
 

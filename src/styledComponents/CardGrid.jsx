@@ -12,6 +12,10 @@ const CardContainer = styled.div`
   padding: 1.5rem;
   background: ${({ theme }) => theme.containerBackground};
   border-radius: 8px;
+
+  @media (max-width: 500px) {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
 `;
 
 const CardGrid = ({cards, cardType}) => {

@@ -12,6 +12,7 @@ import NotFound from "./components/NotFound.jsx";
 import CharacterDetail from "./components/CharacterDetail2.jsx";
 import DragonDetail from "./components/DragonDetail2.jsx";
 import BookDetail from "./components/BookDetail.jsx";
+import Quiz from "./styledComponents/Quiz.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -22,7 +23,7 @@ createRoot(document.getElementById("root")).render(
           <Route path="books" element={<Books />}></Route>
           <Route path="characters" element={<Characters />}></Route>
           <Route path="dragons" element={<Dragons />}></Route>
-          <Route path="lore" element={<Lore />}></Route>
+          <Route path="more" element={<Quiz />}></Route>
           <Route path="characters/:id" element={<CharacterDetail />}></Route>
           <Route path="dragons/:id" element={<DragonDetail />}></Route>
           <Route path="books/:id" element={<BookDetail />}></Route>

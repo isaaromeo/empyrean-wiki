@@ -16,6 +16,9 @@ const CardContainer = styled.div`
     transform: translateY(-4px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   }
+  @media (max-width: 500px) {
+    max-width: 95%;
+  }
 `;
 
 const CardTitle = styled.h3`
