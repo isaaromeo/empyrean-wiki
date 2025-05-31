@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
@@ -34,7 +34,6 @@ const StyledList = styled.ul`
 
 const ListItem = styled.li`
   position: relative;
-  margin: 0;
 `;
 
 const StyledNavLink = styled(NavLink)`
@@ -48,6 +47,7 @@ const StyledNavLink = styled(NavLink)`
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  cursor: pointer;
 
   &:hover {
     color: rgb(218, 213, 203);
@@ -87,34 +87,109 @@ const StyledNavLink = styled(NavLink)`
   }
 `;
 
+const DropdownMenu = styled.ul`
+  display: ${({ visible }) => (visible ? "block" : "none")};
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: rgba(112, 96, 130, 0.9);
+  list-style: none;
+  margin: 0;
+  padding: 0.5rem 0;
+  border-radius: 6px;
+  min-width: 160px;
+  z-index: 10;
+
+  @media (max-width: 768px) {
+    position: static;
+    background: none;
+  }
+`;
+
+const DropdownItem = styled.li`
+  padding: 0;
+
+  a {
+    display: block;
+    padding: 0.5rem 1rem;
+    color: #e6e6e6;
+    text-decoration: none;
+    transition: background 0.3s;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+  }
+
+  @media (max-width: 768px) {
+    a {
+      padding-left: 2rem;
+    }
+  }
+`;
+
 const NavBar = () => {
+  const [showBooksDropdown, setShowBooksDropdown] = useState(false);
+  const [showMoreDropdown, setShowMoreDropdown] = useState(false);
+
   return (
     <NavContainer>
       <StyledList>
         <ListItem>
-          <StyledNavLink to="/" exact activeClassName="active">
+          <StyledNavLink to="/" exact="true" activeClassName="active">
             <span>Home</span>
           </StyledNavLink>
         </ListItem>
+
         <ListItem>
-          <StyledNavLink to="/books" exact activeClassName="active">
-            <span>Books</span>
+          <StyledNavLink
+            as="div"
+            onClick={() => setShowBooksDropdown(!showBooksDropdown)}
+          >
+            <span>Books ▾</span>
           </StyledNavLink>
+          <DropdownMenu visible={showBooksDropdown}>
+            <DropdownItem>
+              <NavLink to="/books/6836456935899cfa20bf5017">
+                Fourth Wing
+              </NavLink>
+            </DropdownItem>
+            <DropdownItem>
+              <NavLink to="/books/6836456935899cfa20bf5018">Iron Flame</NavLink>
+            </DropdownItem>
+            <DropdownItem>
+              <NavLink to="/books/6836456935899cfa20bf5019">Onyx Storm</NavLink>
+            </DropdownItem>
+          </DropdownMenu>
         </ListItem>
+
         <ListItem>
           <StyledNavLink to="/characters" activeClassName="active">
             <span>Characters</span>
           </StyledNavLink>
         </ListItem>
+
         <ListItem>
           <StyledNavLink to="/dragons" activeClassName="active">
             <span>Dragons</span>
           </StyledNavLink>
         </ListItem>
+
         <ListItem>
-          <StyledNavLink to="/lore" activeClassName="active">
-            <span>Lore</span>
+          <StyledNavLink
+            as="div"
+            onClick={() => setShowMoreDropdown(!showMoreDropdown)}
+          >
+            <span>More ▾</span>
           </StyledNavLink>
+          <DropdownMenu visible={showMoreDropdown}>
+            <DropdownItem>
+              <NavLink to="/about">About</NavLink>
+            </DropdownItem>
+            <DropdownItem>
+              <NavLink to="/contact">Contact</NavLink>
+            </DropdownItem>
+          </DropdownMenu>
         </ListItem>
       </StyledList>
     </NavContainer>

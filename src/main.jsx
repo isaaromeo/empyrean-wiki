@@ -6,7 +6,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Characters from './components/Characters.jsx';
 import Home from "./components/Home.jsx";
 import Books from "./components/Books.jsx";
-import Lore from './components/Lore.jsx';
+import Lore from './components/More.jsx';
 import Dragons from "./components/Dragons.jsx";
 import NotFound from "./components/NotFound.jsx";
 import CharacterDetail from "./components/CharacterDetail2.jsx";

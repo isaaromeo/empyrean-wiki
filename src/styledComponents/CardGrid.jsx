@@ -2,27 +2,25 @@ import styled from "styled-components";
 import Card from "./Card.jsx";
 
 
-const GridContainer = styled.div`
+const CardContainer = styled.div`
   display: grid;
-  grid-template-columns: auto auto auto auto;
-  gap: 24px;
-  padding: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
   justify-items: center;
-  background: linear-gradient(
-    90deg,
-    rgba(82, 71, 94, 0.76) 0%,
-    rgba(72, 60, 84, 0.24) 49%,
-    rgba(93, 83, 102, 0) 100%
-  );
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background: ${({ theme }) => theme.containerBackground};
+  border-radius: 8px;
 `;
 
 const CardGrid = ({cards, cardType}) => {
   return (
-    <GridContainer>
+    <CardContainer>
       {cards.map((c) => (
         <Card element={c} cardType={cardType}/>))
       }
-    </GridContainer>
+    </CardContainer>
   );
 };
 

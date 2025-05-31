@@ -37,6 +37,7 @@ const Description = styled.p`
 const StatsContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  justify-content: center;
   gap: 1.5rem;
   margin: 2rem 0;
 `;
@@ -73,6 +74,7 @@ const FeaturedGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 1.5rem;
+  justify-content: center;
 `;
 
 const FeaturedItem = styled.div`
@@ -124,7 +126,7 @@ const Home = () => {
   const handleClick = (section, id) => {
     navigate(`/${section}/${id}`);
   };
-  // Obtener algunos personajes y dragones destacados
+
   const featuredCharacters = characters?.slice(0, 3) || [];
   const featuredDragons = dragons?.slice(0, 3) || [];
 
