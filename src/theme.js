@@ -17,4 +17,11 @@ export const empyreanTheme = {
   sectionTitle: "#f8bbd0",
   signetBackground: "rgba(0, 0, 0, 0.3)",
   quoteBackground: "rgba(0, 0, 0, 0.2)",
+  questionText: "rgba(211, 164, 147, 0.94)",
+  navBarBackground: `radial-gradient(
+    circle,
+    rgba(212, 190, 144, 0.07) 0%,
+    rgba(189, 166, 146, 0.27) 28%,
+    rgba(131, 107, 150, 0.67) 100%
+  )`,
 };

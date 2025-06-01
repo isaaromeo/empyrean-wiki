@@ -1,26 +1,22 @@
-import React from "react";
+
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
+import React, { useState, useEffect, useRef } from "react";
+
 import { FaHome, FaUsers, FaDragon, FaBook, FaEllipsisV, FaEllipsisH } from "react-icons/fa";
 
 const NavContainer = styled.nav`
-  background: radial-gradient(
-    circle,
-    rgba(212, 190, 144, 0.07) 0%,
-    rgba(189, 166, 146, 0.27) 28%,
-    rgba(131, 107, 150, 0.67) 100%
-  );
+  background: ${({ theme }) => theme.navBarBackground};
   padding: 0.5rem 2rem;
   box-shadow: 0 2px 15px rgba(0, 0, 0, 0.4);
   position: sticky;
   top: 0;
   z-index: 100;
   border-radius: 10px;
-  max-width: 1200px;
+  max-width: 1250px;
   margin: 0 auto;
-  overflow-x: auto;
+  overflow: visible;
   @media (max-width: 600px) {
-    
     padding: 0;
   }
 `;
@@ -126,7 +122,55 @@ const MobileIcon = styled.div`
   }
 `;
 
+const DropdownMenu = styled.div`
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: ${({ theme }) => theme.navBarBackground};
+  border-radius: 8px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  min-width: 160px;
+  z-index: 9999;
+  overflow: visible;
+`;
+
+const DropdownItem = styled(NavLink)`
+  padding: 0.75rem 1rem;
+  color: ${({ theme }) => theme.primaryText};
+  text-decoration: none;
+  white-space: nowrap;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.accentColor}22;
+    color: ${({ theme }) => theme.accentColor};
+  }
+
+  &.active {
+    color: ${({ theme }) => theme.accentColor};
+    font-weight: bold;
+  }
+`;
+
+
 const NavBar = () => {
+  const[dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
+
+  // Cerrar el dropdown al hacer clic fuera
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
   return (
     <NavContainer>
       <StyledList>
@@ -162,13 +206,35 @@ const NavBar = () => {
             <NavText>Dragons</NavText>
           </StyledNavLink>
         </ListItem>
-        <ListItem>
-          <StyledNavLink to="/more" activeClassName="active">
+        <ListItem ref={dropdownRef}>
+          <StyledNavLink
+            as="div"
+            onClick={() => setDropdownOpen(!dropdownOpen)}
+          >
             <MobileIcon>
               <FaEllipsisH />
             </MobileIcon>
             <NavText>More</NavText>
           </StyledNavLink>
+          {dropdownOpen && (
+            <DropdownMenu>
+              <DropdownItem to="/signetQuiz" onClick={() => setDropdownOpen(false)}>
+                Signet Quiz
+              </DropdownItem>
+              <DropdownItem
+                to="/dragonQuiz"
+                onClick={() => setDropdownOpen(false)}
+              >
+                Dragon Quiz
+              </DropdownItem>
+              <DropdownItem
+                to="/lore"
+                onClick={() => setDropdownOpen(false)}
+              >
+                Lore
+              </DropdownItem>
+            </DropdownMenu>
+          )}
         </ListItem>
       </StyledList>
     </NavContainer>
