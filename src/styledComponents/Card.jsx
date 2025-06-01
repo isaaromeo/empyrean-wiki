@@ -5,6 +5,7 @@ const CardContainer = styled.div`
   width: 320px;
   border-radius: 8px;
   overflow: hidden;
+  justify-self: center;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   background: ${({ theme }) => theme.cardBackground};
   transition: transform 0.2s, box-shadow 0.2s;
@@ -17,7 +18,7 @@ const CardContainer = styled.div`
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   }
   @media (max-width: 500px) {
-    max-width: 95%;
+    max-width: 90%;
   }
 `;
 

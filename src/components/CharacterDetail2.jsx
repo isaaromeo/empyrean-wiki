@@ -1,15 +1,13 @@
 import styled from "styled-components";
-import { useElemInfo } from "../hooks/useElemInfo";
-import { useApiData } from "../hooks/useApiData";
 import { useCharacterWithDragon } from "../hooks/useCharacterWithDragon";
-
-
+import BookAppearance from "../styledComponents/BookAppearance";
+import { useNavigate } from "react-router-dom";
 // Componentes de estilo
 const DetailContainer = styled.div`
   width: 85%;
   max-width: 1400px;
   justify-self: center;
-  margin: 2rem;
+  
   padding: 2rem;
   background: ${({ theme }) => theme.containerBackground};
   border-radius: 8px;
@@ -17,9 +15,8 @@ const DetailContainer = styled.div`
 `;
 
 const CharacterInfoContainer = styled.div`
-  width: 40%;
+  width: 50%;
   max-height: 450px;
-  min-with: 450px;
   margin: 6px;
   display: flex;
   justify-content: center;
@@ -30,7 +27,8 @@ const CharacterInfoContainer = styled.div`
     width: 85%;
   }
   @media (max-width: 550px) {
-    width: 95%;
+    width: 100%;
+    max-height: 650px;
   }
 `;
 
@@ -61,14 +59,18 @@ const CharacterImage = styled.img`
     
 `;
 const DragonImage = styled.img`
-  display:none;
+  display: none;
   @media (min-width: 1500px) {
-    display:block;
+    display: block;
     width: 350px;
     height: 450px;
     object-fit: cover;
     border-radius: 8px;
     border: 2px solid ${({ theme }) => theme.borderColor};
+
+    &:hover {
+      transform: scale(1.02);
+    }
   }
 `;
 
@@ -120,10 +122,8 @@ const MetaItem = styled.span`
 `;
 
 const Section = styled.section`
-  margin-bottom: 2rem;
-  @media (max-width: 550px) {
-    margin-bottom: 1rem;
-  }
+  margin-bottom: 1rem;
+  
 `;
 
 const SectionTitle = styled.h2`
@@ -134,6 +134,7 @@ const SectionTitle = styled.h2`
   padding-bottom: 0.5rem;
   @media (max-width: 550px) {
     margin-bottom: 0.7rem;
+    font-size: 1rem;
   }
 `;
 
@@ -226,24 +227,19 @@ const RelationshipItem = styled.div`
 `;
 
 const CharacterDetail = () => {
-  // console.log("1")
-  // const { character, dragon} = useElemInfo("characters");
-  // console.log("2", dragon);
-  
-  // if (!character ) {
-  //   console.log("3", dragon);
-  //   return <div>Cargando...</div>;
-    
-  // }
 
   const { character, dragon, loading, error } = useCharacterWithDragon();
+
+  const navigate = useNavigate();
+
+  const handleClick = (section, id) => {
+    navigate(`/${section}/${id}`);
+  };
 
   if (loading) return <div>Cargando...</div>;
   if (error) return <div>Error: {error.message}</div>;
   if (!character) return <div>Personaje no encontrado</div>;
   
-  console.log("4", dragon);
-  // Valores por defecto para propiedades opcionales
   const {
     dragonn = [],
     occupation = [],
@@ -309,10 +305,7 @@ const CharacterDetail = () => {
         <DragonImage
           src={dragon[0].image_url}
           alt={"map"}
-          onError={(e) => {
-            e.target.src =
-              "https://via.placeholder.com/300x400?text=Character+Image";
-          }}
+          onClick={() => handleClick("dragons", dragon[0]._id)}
         />
       </CharacterHeader>
 
@@ -364,11 +357,7 @@ const CharacterDetail = () => {
       {appearances.length > 0 && (
         <Section>
           <SectionTitle>Appearances</SectionTitle>
-          <TagList>
-            {appearances.map((book) => (
-              <Tag key={book}>{book}</Tag>
-            ))}
-          </TagList>
+          <BookAppearance booksNames={appearances}/>
         </Section>
       )}
     </DetailContainer>

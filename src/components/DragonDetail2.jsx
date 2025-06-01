@@ -1,14 +1,14 @@
 import styled from "styled-components";
 import { useCharacterWithDragon } from "../hooks/useCharacterWithDragon";
 import { useDragonWithCharacter } from "../hooks/useDragonWithCharacter";
-
+import { useNavigate } from "react-router-dom";
 
 // Componentes de estilo
 const DetailContainer = styled.div`
   width: 85%;
   max-width: 1400px;
   justify-self: center;
-  margin: 2rem;
+
   padding: 2rem;
   background: ${({ theme }) => theme.containerBackground};
   border-radius: 8px;
@@ -60,14 +60,17 @@ const DragonImage = styled.img`
     
 `;
 const CharacterImage = styled.img`
-  display:none;
+  display: none;
   @media (min-width: 1500px) {
-    display:block;
+    display: block;
     width: 350px;
     height: 450px;
     object-fit: cover;
     border-radius: 8px;
     border: 2px solid ${({ theme }) => theme.borderColor};
+    &:hover {
+      transform: scale(1.02);
+    }
   }
 `;
 
@@ -228,6 +231,12 @@ const DragonDetail = () => {
 
   const { dragon, character, loading, error } = useDragonWithCharacter();
 
+  const navigate = useNavigate();
+  
+    const handleClick = (section, id) => {
+      navigate(`/${section}/${id}`);
+    };
+
   if (loading) return <div>Cargando...</div>;
   if (error) return <div>Error: {error.message}</div>;
   if (!character) return <div>Personaje no encontrado</div>;
@@ -299,10 +308,7 @@ const DragonDetail = () => {
         <CharacterImage
           src={character.image_url}
           alt={"map"}
-          onError={(e) => {
-            e.target.src =
-              "https://via.placeholder.com/300x400?text=Character+Image";
-          }}
+          onClick={() => handleClick("characters", character._id)}
         />
       </DragonHeader>
 

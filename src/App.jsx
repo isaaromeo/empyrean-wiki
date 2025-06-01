@@ -9,6 +9,7 @@ import { ThemeProvider } from "styled-components";
 import { empyreanTheme } from "./theme";
 import dragonIcon1 from "./assets/icons/dragon_icon1.png";
 import dragonIcon2 from "./assets/icons/dragon_icon2.png";
+import Path from "./styledComponents/Path.jsx";
 
 function App() {
 
@@ -17,11 +18,7 @@ function App() {
     <ThemeProvider theme={empyreanTheme}>
       <div>
         <header className="header">
-          <img
-            src={dragonIcon2}
-            alt="dragon icon"
-            className="dragon-icon"
-          />
+          <img src={dragonIcon2} alt="dragon icon" className="dragon-icon" />
           <h1 className="pageTitle">Empyrean Archive</h1>
           <img src={dragonIcon1} alt="dragon icon" className="dragon-icon" />
         </header>
@@ -30,9 +27,20 @@ function App() {
             <NavBar />
           </nav>
         </div>
-        <main>
-          <Outlet></Outlet>
-        </main>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            padding: "1rem 2rem",
+            maxWidth: "1300px",
+            margin: "0 auto",
+          }}
+        >
+          <Path />
+          <main>
+            <Outlet />
+          </main>
+        </div>
         <footer>Created by Isa 🧚💻</footer>
       </div>
     </ThemeProvider>

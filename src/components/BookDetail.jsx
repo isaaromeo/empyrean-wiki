@@ -10,7 +10,7 @@ const DetailContainer = styled.div`
   width: 85%;
   max-width: 1400px;
   justify-self: center;
-  margin: 2rem;
+
   padding: 2rem;
   background: ${({ theme }) => theme.containerBackground};
   border-radius: 8px;

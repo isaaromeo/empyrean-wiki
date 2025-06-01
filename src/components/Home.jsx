@@ -3,8 +3,10 @@ import { useApiData } from "../hooks/useApiData";
 import { useNavigate } from "react-router-dom";
 
 const HomeContainer = styled.div`
-  max-width: 1200px;
-  margin: 2rem auto;
+  width: 85%;
+  max-width: 1400px;
+  justify-self: center;
+
   padding: 2rem;
   background: ${({ theme }) => theme.containerBackground};
   border-radius: 8px;

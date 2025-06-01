@@ -1,8 +1,19 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
-
-import {questions, answerToSignet} from "../data/signetQuestions";
+import {
+  FaSearch,
+  FaMagic,
+  FaHatWizard,
+  FaCircle,
+  FaDotCircle,
+  FaArrowRight,
+  FaChessKnight,
+  FaDragon,
+  FaGem,
+  FaCrown,
+  FaAward,
+} from "react-icons/fa";
 
 const QuizContainer = styled.div`
   width: 100%;
@@ -21,7 +32,7 @@ const QuizContainer = styled.div`
 
 const SectionTitle = styled.h2`
   font-size: 2rem;
-  margin-bottom: 1.5rem;
+  margin:0rem;
   color: ${({ theme }) => theme.sectionTitle};
 
   @media (max-width: 500px) {
@@ -163,7 +174,9 @@ const Quiz = ({questions, answers, quizElement}) => {
 
   return (
     <QuizContainer>
-      <SectionTitle>Discover Your Signet</SectionTitle>
+      <SectionTitle>
+         Discover Your {quizElement}! 
+      </SectionTitle>
       <form onSubmit={handleSubmit(onSubmit)}>
         {questions.map((q, idx) => (
           <QuestionBlock key={idx}>
@@ -180,7 +193,7 @@ const Quiz = ({questions, answers, quizElement}) => {
             ))}
           </QuestionBlock>
         ))}
-        <SubmitButton type="submit">Discover your Signet</SubmitButton>
+        <SubmitButton type="submit">Discover your {quizElement}</SubmitButton>
       </form>
 
       {result && (
