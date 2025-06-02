@@ -11,14 +11,14 @@ const StarContainer = styled.div`
 
 const Rating = ({ value = 0 }) => {
   const stars = [];
-
+  console.log("Rating renderizado");
   for (let i = 1; i <= 5; i++) {
     if (value >= i) {
-      stars.push(<FaStar key={i} color="#FFD700" />); // Estrella llena
-    } else if (value >= i - 0.5) {
-      stars.push(<FaStarHalfAlt key={i} color="#FFD700" />); // Media estrella
+      stars.push(<FaStar key={i} color="#FFD700" />);
+    } else if (value >= i - 0.7) {
+      stars.push(<FaStarHalfAlt key={i} color="#FFD700" />);
     } else {
-      stars.push(<FaRegStar key={i} color="#FFD700" />); // Estrella vacía
+      stars.push(<FaRegStar key={i} color="#FFD700" />);
     }
   }
 

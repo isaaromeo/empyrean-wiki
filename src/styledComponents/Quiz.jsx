@@ -1,19 +1,6 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
-import {
-  FaSearch,
-  FaMagic,
-  FaHatWizard,
-  FaCircle,
-  FaDotCircle,
-  FaArrowRight,
-  FaChessKnight,
-  FaDragon,
-  FaGem,
-  FaCrown,
-  FaAward,
-} from "react-icons/fa";
 
 const QuizContainer = styled.div`
   width: 100%;
@@ -124,15 +111,14 @@ const Quiz = ({questions, answers, quizElement}) => {
 
   const { register, handleSubmit, formState } = useForm();
   const { errors } = formState;
-  const [showValidationError, setShowValidationError] = useState(false);
+  const [showError, setShowError] = useState(false);
   const [result, setResult] = useState(null);
   
 
   const getResult = (category) => {
     const options = answers[category];
     const answer = options.possible_answers[Math.floor(Math.random() * options.possible_answers.length)];
-    console.log(answer);
-    console.log(options.description);
+
     return {
         result: answer,
         resultDesc: options.description
@@ -158,7 +144,7 @@ const Quiz = ({questions, answers, quizElement}) => {
   };
 
   const onSubmit = (data) => {
-    setShowValidationError(false); // Oculta mensaje si pasa la validación
+    setShowError(false);
 
     let totalScore = 0;
 
@@ -174,7 +160,7 @@ const Quiz = ({questions, answers, quizElement}) => {
   };
 
   const onError = () => {
-    setShowValidationError(true);
+    setShowError(true);
   };
 
   return (
@@ -197,7 +183,7 @@ const Quiz = ({questions, answers, quizElement}) => {
           </QuestionBlock>
         ))}
 
-        {showValidationError && (
+        {showError && (
           <p style={{ color: "red", marginBottom: "1rem" }}>
             Completition of ALL questions is required to obtain a result.
           </p>

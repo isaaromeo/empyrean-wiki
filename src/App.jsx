@@ -1,9 +1,9 @@
 //import { useState } from 'react'
 import { Outlet, Route, Routes } from "react-router-dom";
-import Home from "./components/Home";
+import Home from "./styledComponents/Home.jsx";
 import Characters from "./components/Characters";
 import './App.css'
-import NavBar from "./components/NavBar.jsx";
+import NavBar from "./styledComponents/NavBar.jsx";
 import { ThemeProvider } from "styled-components";
 import { empyreanTheme } from "./theme";
 import dragonIcon1 from "./assets/icons/dragon_icon1.png";
@@ -48,11 +48,3 @@ function App() {
 }
 
 export default App
-
-// return (
-//   <Routes>
-//     <Route path="/" element={<Home />} />
-//     <Route path="/caharcters" element={<Characters />} />
-//     <Route path="/lore" element={<Lore />} />
-//   </Routes>
-// );

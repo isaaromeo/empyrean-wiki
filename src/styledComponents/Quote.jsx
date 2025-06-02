@@ -1,8 +1,6 @@
-//import styled from "styled-components";
+import React from "react";
 
 const Quote = ({ quotes }) => {
-  if (!quotes?.length) return <p>No quotes available</p>;
-
   return (
     <div className="quotes-grid">
       {quotes.map((quote, index) => (

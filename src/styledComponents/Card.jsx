@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import React from "react";
 
 const CardContainer = styled.div`
   width: 320px;
@@ -162,7 +163,7 @@ const Card = ({ element, cardType}) => {
 
 
   
-  
+           console.log("Card renderizado");
 
   return (
     <CardContainer onClick={handleClick}>
@@ -189,4 +190,4 @@ const Card = ({ element, cardType}) => {
   );
 };
 
-export default Card;
+export default React.memo(Card);

@@ -10,12 +10,11 @@ export function useApiData(apiUrl, cacheData) {
 
       try {
         const cache = localStorage.getItem(cacheData);
-        console.log("data cache", cache)
+        
         if (cache) {
           const data = JSON.parse(cache);
-          console.log("if cache",data)
+          
           setData(data);
-          //return data;
         }
 
         const response = await fetch(apiUrl);
@@ -28,7 +27,6 @@ export function useApiData(apiUrl, cacheData) {
           localStorage.setItem("books", JSON.stringify(responseJSON));
         }
         setData(responseJSON);
-        //return responseJSON;
       } catch (error) {
         console.error("Error fetching data:", error);
       } 

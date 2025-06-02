@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useApiData } from "../hooks/useApiData";
 import { useNavigate } from "react-router-dom";
+import Rating from "./Rating";
 
 const HomeContainer = styled.div`
  width: 85%;
@@ -188,7 +189,7 @@ const Books = () => {
     "https://empyrean-api.onrender.com/api/books",
     "books"
   );
-
+  
   const navigate = useNavigate();
 
   const handleClick = (id) => {
@@ -221,13 +222,15 @@ const Books = () => {
       <Description>
         The series is planned as a five-book saga, meaning two more books are
         still on the horizon. Each installment delves deeper into the politics
-        of Navarre, the secrets of Basgiath War College, and deadly threats. 🔥
-        Fun Fact: Fourth Wing sold over 500,000 copies in its first four weeks
-        and was printed with black sprayed edges and a hidden dragon design —
-        making early editions highly collectible. Whether you're here to catch
-        up on lore, revisit key plot points, or explore character arcs, this
-        section is your go-to hub for everything book-related in the Empyrean
-        universe.
+        of Navarre, the secrets of Basgiath War College, and deadly threats.
+      </Description>
+      <Description>
+        🔥 Fun Fact: Fourth Wing sold over 500,000 copies in its first four
+        weeks and was printed with black sprayed edges and a hidden dragon
+        design — making early editions highly collectible. Whether you're here
+        to catch up on lore, revisit key plot points, or explore character arcs,
+        this section is your go-to hub for everything book-related in the
+        Empyrean universe.
       </Description>
 
       <FeaturedSection>
@@ -247,7 +250,9 @@ const Books = () => {
               <BookMeta>
                 <MetaItem>Author: {book.author}</MetaItem>
                 <MetaItem>Date: {book.publish_date}</MetaItem>
-                <MetaItem>Rating: {book.rating}</MetaItem>
+                <MetaItem>
+                  Rating: <Rating value={book.rating} />
+                </MetaItem>
 
                 {book.genres.length > 0 && (
                   <Section>

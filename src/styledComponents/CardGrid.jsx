@@ -24,6 +24,7 @@ const CardContainer = styled.div`
 `;
 
 const CardGrid = ({cards, cardType}) => {
+
   return (
     <CardContainer>
       {cards.map((c) => (

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useElemInfo } from "../hooks/useElemInfo.jsx";
-import Rating from "../styledComponents/Rating";
+import Rating from "./Rating.jsx";
 
 const DetailContainer = styled.div`
   width: 85%;
@@ -136,55 +136,28 @@ const ValueCell = styled.td`
   border-bottom: 1px solid ${({ theme }) => theme.borderColor};
 `;
 
-const CompactList = styled.ul`
-  margin: 0;
-  padding-left: 16px;
-  list-style-type: none;
-`;
-
-const CompactListItem = styled.li`
-  margin-bottom: 4px;
-`;
-
 const BookDetail = () => {
   const { element: book, loading } = useElemInfo("book");
-  console.log(book);
 
   if (loading) return <div>Loading...</div>;
   if (!book) return <div>Book not found</div>;
 
-  const formatArray = (array) => {
-    if (!array || array.length === 0) return "None";
-    return (
-      <CompactList>
-        {array.map((item, index) => (
-          <CompactListItem key={index}>{item}</CompactListItem>
-        ))}
-      </CompactList>
-    );
-  };
-
+  //posible useMemo pero da error(revisar)
   const bookInfo =
         {
              Author: book.author,
              "Publishing date": book.publish_date,
              Publisher: book.publisher,
              Pages: book.pages,
-             Genres: formatArray(book.genres),
+             Genres: book.genres,
              Rating: book.rating
            }
+          
  
   return (
     <DetailContainer>
       <BookHeader>
-        <BookImage
-          src={book.cover}
-          alt={book.name}
-          onError={(e) => {
-            e.target.src =
-              "https://via.placeholder.com/300x400?text=Character+Image";
-          }}
-        />
+        <BookImage src={book.cover} alt={book.name} />
         <BookInfoContainer>
           <BookInfo>
             <TitleContainer>
@@ -196,7 +169,13 @@ const BookDetail = () => {
                   <TableRow key={key}>
                     <KeyCell>{key}</KeyCell>
                     <ValueCell>
-                      {key === "Rating" ? <Rating value={value}> </Rating>: value}
+                      {key === "Rating" ? (
+                        <Rating value={value} />
+                      ) : Array.isArray(value) ? (
+                        value.join(" || ")
+                      ) : (
+                        value
+                      )}
                     </ValueCell>
                   </TableRow>
                 ))}

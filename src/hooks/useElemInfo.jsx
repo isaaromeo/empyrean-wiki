@@ -9,17 +9,16 @@ export function useElemInfo(elemType) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // 1. Obtener el personaje
         const elementsData = localStorage.getItem(`${elemType}s`);
         //console.log(elementsData)
         if (!elementsData) {
-          throw new Error("No element data in caché");
+          throw new Error("No element data in cache");
         }
 
         const elements = JSON.parse(elementsData);
         const foundElement = elements.find((c) => c._id === id);
         if (!foundElement) {
-          throw new Error(`Elemento con ID ${id} no encontrado`);
+          throw new Error(`No element with ID: ${id} found`);
         }
         setElement(foundElement);
 
@@ -33,7 +32,6 @@ export function useElemInfo(elemType) {
 
     fetchData();
   }, [elemType, id]);
-  console.log(element)
   return { element, loading};
 }
 

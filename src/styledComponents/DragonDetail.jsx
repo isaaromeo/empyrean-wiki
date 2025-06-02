@@ -1,8 +1,7 @@
 import styled from "styled-components";
-import { useCharacterWithDragon } from "../hooks/useCharacterWithDragon";
 import { useDragonWithCharacter } from "../hooks/useDragonWithCharacter";
 import { useNavigate } from "react-router-dom";
-import BookAppearance from "../styledComponents/BookAppearance";
+import BookAppearance from "./BookAppearance";
 
 // Componentes de estilo
 const DetailContainer = styled.div`
@@ -230,7 +229,7 @@ const RelationshipItem = styled.div`
 
 const DragonDetail = () => {
 
-  const { dragon, character, loading, error } = useDragonWithCharacter();
+  const { dragon, character, loading} = useDragonWithCharacter();
 
   const navigate = useNavigate();
   
@@ -239,36 +238,20 @@ const DragonDetail = () => {
     };
 
   if (loading) return <div>Cargando...</div>;
-  if (error) return <div>Error: {error.message}</div>;
   if (!character) return <div>Personaje no encontrado</div>;
   
-  console.log("4", dragon);
-  // Valores por defecto para propiedades opcionales
   const {
-    color = [],
     bio = [],
-    tail = [],
     quotes = [],
     relationships = [],
     appearances = [],
   } = dragon;
   
-  
-  console.log("5", character);
-  //const dragon2 = dragons.find((d) => d === character.dragon);
-  
 
   return (
     <DetailContainer>
       <DragonHeader>
-        <DragonImage
-          src={dragon.image_url}
-          alt={dragon.name}
-          onError={(e) => {
-            e.target.src =
-              "https://via.placeholder.com/300x400?text=Character+Image";
-          }}
-        />
+        <DragonImage src={dragon.image_url} alt={dragon.name} />
         <DragonInfoContainer>
           <DragonInfo>
             <TitleContainer>
@@ -293,7 +276,7 @@ const DragonDetail = () => {
               </Section>
             )}
 
-            {dragon.bonded_rider.length > 0 && (
+            {dragon.name_meaning.length > 0 && (
               <Section>
                 <SectionTitle>Name Meaning</SectionTitle>
                 <DragonMeta>
@@ -308,7 +291,7 @@ const DragonDetail = () => {
 
         <CharacterImage
           src={character.image_url}
-          alt={"map"}
+          alt={character.name}
           onClick={() => handleClick("characters", character._id)}
         />
       </DragonHeader>

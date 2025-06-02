@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { useCharacterWithDragon } from "../hooks/useCharacterWithDragon";
-import BookAppearance from "../styledComponents/BookAppearance";
+import BookAppearance from "./BookAppearance";
 import { useNavigate } from "react-router-dom";
-// Componentes de estilo
+
 const DetailContainer = styled.div`
   width: 85%;
   max-width: 1400px;
@@ -200,21 +200,6 @@ const QuoteSource = styled.p`
   color: ${({ theme }) => theme.secondaryText};
 `;
 
-const TagList = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content:center;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
-`;
-
-const Tag = styled.span`
-  background: ${({ theme }) => theme.tagBackground};
-  padding: 0.3rem 0.8rem;
-  border-radius: 20px;
-  font-size: 0.9rem;
-`;
-
 const RelationshipItem = styled.div`
   display: flex;
   justify-content: space-between;
@@ -228,7 +213,7 @@ const RelationshipItem = styled.div`
 
 const CharacterDetail = () => {
 
-  const { character, dragon, loading, error } = useCharacterWithDragon();
+  const { character, dragon, loading} = useCharacterWithDragon();
 
   const navigate = useNavigate();
 
@@ -236,12 +221,10 @@ const CharacterDetail = () => {
     navigate(`/${section}/${id}`);
   };
 
-  if (loading) return <div>Cargando...</div>;
-  if (error) return <div>Error: {error.message}</div>;
-  if (!character) return <div>Personaje no encontrado</div>;
+  if (loading) return <div>Loading..</div>;
+  if (!character) return <div>Character not found</div>;
   
   const {
-    dragonn = [],
     occupation = [],
     bio = [],
     signet = [],
@@ -250,22 +233,11 @@ const CharacterDetail = () => {
     appearances = [],
   } = character;
   
-  
-  console.log("5", character.dragon);
-  //const dragon2 = dragons.find((d) => d === character.dragon);
-  
 
   return (
     <DetailContainer>
       <CharacterHeader>
-        <CharacterImage
-          src={character.image_url}
-          alt={character.name}
-          onError={(e) => {
-            e.target.src =
-              "https://via.placeholder.com/300x400?text=Character+Image";
-          }}
-        />
+        <CharacterImage src={character.image_url} alt={character.name} />
         <CharacterInfoContainer>
           <CharacterInfo>
             <TitleContainer>
@@ -304,7 +276,7 @@ const CharacterDetail = () => {
 
         <DragonImage
           src={dragon[0].image_url}
-          alt={"map"}
+          alt={dragon[0].name}
           onClick={() => handleClick("dragons", dragon[0]._id)}
         />
       </CharacterHeader>
@@ -357,7 +329,7 @@ const CharacterDetail = () => {
       {appearances.length > 0 && (
         <Section>
           <SectionTitle>Appearances</SectionTitle>
-          <BookAppearance booksNames={appearances}/>
+          <BookAppearance booksNames={appearances} />
         </Section>
       )}
     </DetailContainer>

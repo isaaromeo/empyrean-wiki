@@ -171,6 +171,7 @@ const NavBar = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
   return (
     <NavContainer>
       <StyledList>

@@ -129,8 +129,9 @@ const Home = () => {
     navigate(`/${section}/${id}`);
   };
 
-  const featuredCharacters = characters?.slice(0, 3) || [];
-  const featuredDragons = dragons?.slice(0, 3) || [];
+  const featuredCharacters = characters?.slice(0, 3);
+  const featuredDragons = dragons?.slice(0, 3);
+
 
   return (
     <HomeContainer>

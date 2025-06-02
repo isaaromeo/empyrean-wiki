@@ -41,9 +41,8 @@ const PathItem = styled.div`
 
 const Path = () => {
   const location = useLocation();
-  const pathnames = location.pathname.split("/").filter((x) => x);
+  const pathnames = location.pathname.split("/").filter((p) => p);
 
-  // Obtener datos de las entidades
   const characters = useApiData(
     "https://empyrean-api.onrender.com/api/characters",
     "characters"
@@ -56,10 +55,8 @@ const Path = () => {
     "https://empyrean-api.onrender.com/api/dragons",
     "dragons"
   );
-  console.log(dragons)
 
-  // Función para obtener el nombre del item por su ID
-  const getItemName = (type, id) => {
+  const getItemNameById = (type, id) => {
     let collection;
     switch (type) {
       case "characters":
@@ -72,16 +69,15 @@ const Path = () => {
         collection = dragons;
         break;
       default:
-        return id; // Si no es un tipo conocido, devuelve el ID
+        return id;
     }
-    console.log(collection, type, id)
+    
     const item = collection.find((item) => item._id === id);
-    console.log(item)
-    return item ? item.name : id; // Devuelve el nombre o el ID si no se encuentra
+    return item ? item.name : id;
   };
 
   return (
-    <PathContainer aria-label="Path">
+    <PathContainer label="Path">
       <PathItem>
         <Link to="/">
           <FaHome />
@@ -101,8 +97,8 @@ const Path = () => {
         const displayName =
           isObjectId &&
           ["characters", "books", "dragons"].includes(previousSegment)
-            ? getItemName(previousSegment, name)
-            : name.replace(/-/g, " ");
+            ? getItemNameById(previousSegment, name)
+            : name
 
         return (
           <PathItem key={name}>
@@ -121,4 +117,4 @@ const Path = () => {
   );
 };
 
-export default Path;
+export default React.memo(Path);
