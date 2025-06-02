@@ -11,7 +11,7 @@ const StarContainer = styled.div`
 
 const Rating = ({ value = 0 }) => {
   const stars = [];
-  console.log("Rating renderizado");
+
   for (let i = 1; i <= 5; i++) {
     if (value >= i) {
       stars.push(<FaStar key={i} color="#FFD700" />);

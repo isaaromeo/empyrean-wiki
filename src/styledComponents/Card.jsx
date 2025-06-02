@@ -163,7 +163,7 @@ const Card = ({ element, cardType}) => {
 
 
   
-           console.log("Card renderizado");
+
 
   return (
     <CardContainer onClick={handleClick}>
