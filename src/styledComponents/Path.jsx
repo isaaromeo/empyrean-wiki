@@ -28,7 +28,7 @@ const PathItem = styled.div`
     transition: color 0.2s;
 
     &:hover {
-      color: ${({ theme }) => theme.pathLinkHover || "#007bff"};
+      color: ${({ theme }) => theme.accentColor};
       text-decoration: underline;
     }
   }
@@ -56,6 +56,7 @@ const Path = () => {
     "https://empyrean-api.onrender.com/api/dragons",
     "dragons"
   );
+  console.log(dragons)
 
   // Función para obtener el nombre del item por su ID
   const getItemName = (type, id) => {
@@ -73,8 +74,9 @@ const Path = () => {
       default:
         return id; // Si no es un tipo conocido, devuelve el ID
     }
-
+    console.log(collection, type, id)
     const item = collection.find((item) => item._id === id);
+    console.log(item)
     return item ? item.name : id; // Devuelve el nombre o el ID si no se encuentra
   };
 

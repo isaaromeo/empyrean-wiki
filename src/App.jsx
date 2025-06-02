@@ -2,9 +2,8 @@
 import { Outlet, Route, Routes } from "react-router-dom";
 import Home from "./components/Home";
 import Characters from "./components/Characters";
-import Lore from "./components/More";
 import './App.css'
-import NavBar from "./components/NavBar2";
+import NavBar from "./components/NavBar.jsx";
 import { ThemeProvider } from "styled-components";
 import { empyreanTheme } from "./theme";
 import dragonIcon1 from "./assets/icons/dragon_icon1.png";

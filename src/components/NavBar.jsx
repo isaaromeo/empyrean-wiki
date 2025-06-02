@@ -1,20 +1,24 @@
-import React, { useState } from "react";
+
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
+import React, { useState, useEffect, useRef } from "react";
+
+import { FaHome, FaUsers, FaDragon, FaBook, FaEllipsisV, FaEllipsisH } from "react-icons/fa";
 
 const NavContainer = styled.nav`
-  background: linear-gradient(
-    90deg,
-    rgba(112, 96, 130, 0.76) 0%,
-    rgba(103, 83, 122, 0.24) 49%,
-    rgba(93, 83, 102, 0) 100%
-  );
-  padding: 1rem 2rem;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  background: ${({ theme }) => theme.navBarBackground};
+  padding: 0.5rem 2rem;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.4);
   position: sticky;
-  border-radius: 5px;
   top: 0;
   z-index: 100;
+  border-radius: 10px;
+  max-width: 1250px;
+  margin: 0 auto;
+  overflow: visible;
+  @media (max-width: 600px) {
+    padding: 0;
+  }
 `;
 
 const StyledList = styled.ul`
@@ -22,174 +26,209 @@ const StyledList = styled.ul`
   margin: 0;
   padding: 0;
   list-style-type: none;
-  justify-content: start;
-  gap: 2rem;
+  justify-content: center;
+  gap: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
 
-  @media (max-width: 768px) {
-    flex-direction: column;
+  @media (max-width: 900px) {
     gap: 0.5rem;
-    align-items: center;
+    justify-content: space-around;
+  }
+
+  @media (max-width: 600px) {
+    gap: 0;
+    padding: 0;
+    
+    
   }
 `;
 
 const ListItem = styled.li`
   position: relative;
-`;
-
-const StyledNavLink = styled(NavLink)`
-  color: #e6e6e6;
-  text-decoration: none;
-  font-size: 1.2rem;
-  font-weight: 600;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  cursor: pointer;
+  margin: 0;
+  transition: transform 0.2s ease;
 
   &:hover {
-    color: rgb(218, 213, 203);
-    background: linear-gradient(
-      1deg,
-      rgba(163, 131, 95, 0.38) 0%,
-      rgba(176, 150, 94, 0.04) 49%,
-      rgba(189, 169, 92, 0) 100%
-    );
     transform: translateY(-2px);
   }
 
-  &.active {
-    color: rgb(218, 213, 203);
-    background: linear-gradient(
-      1deg,
-      rgba(163, 131, 95, 0.38) 0%,
-      rgba(176, 150, 94, 0.04) 49%,
-      rgba(189, 169, 92, 0) 100%
-    );
-    &::after {
-      content: "";
-      position: absolute;
-      bottom: -8px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 60%;
-      height: 3px;
-      background: rgba(212, 174, 103, 0.58);
-      border-radius: 3px;
-    }
+  @media (max-width: 600px) {
+    width: auto;
+  }
+`;
+
+const StyledNavLink = styled(NavLink)`
+  color: ${({ theme }) => theme.primaryText};
+  text-decoration: none;
+  font-size: 1.1rem;
+  padding: 0.8rem 1.2rem;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  position: relative;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+
+  &:hover {
+    color: ${({ theme }) => theme.accentColor};
+    
   }
 
-  @media (max-width: 768px) {
-    padding: 0.5rem;
+  &.active {
+    color: ${({ theme }) => theme.accentColor};
+    background: rgba(255, 158, 128, 0.15);
+
+  }
+
+  @media (max-width: 900px) {
+    padding: 0.6rem 0.8rem;
+    font-size: 0.8rem;
+  }
+
+  @media (max-width: 500px) {
+    padding: 0.8rem;
+    font-size: 0;
+    border-radius: 25%;
+    width: 30px;
+    height: 30px;
+    justify-content: center;
+    align-items: center;
+
+    &.active {
+      &::before {
+        display: none;
+      }
+      
+    }
+  }
+`;
+
+const NavText = styled.span`
+  @media (max-width: 700px) {
+    display: none;
+  }
+`;
+
+const MobileIcon = styled.div`
+  font-size: 1.2rem;
+  padding-top: 6px;
+  @media (max-width: 700px) {
+    display: block;
     font-size: 1rem;
   }
 `;
 
-const DropdownMenu = styled.ul`
-  display: ${({ visible }) => (visible ? "block" : "none")};
+const DropdownMenu = styled.div`
   position: absolute;
   top: 100%;
   left: 0;
-  background: rgba(112, 96, 130, 0.9);
-  list-style: none;
-  margin: 0;
-  padding: 0.5rem 0;
-  border-radius: 6px;
+  background: ${({ theme }) => theme.tableOddRow};
+  border-radius: 8px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
   min-width: 160px;
-  z-index: 10;
+  z-index: 9999;
+  overflow: visible;
+`;
 
-  @media (max-width: 768px) {
-    position: static;
-    background: none;
+const DropdownItem = styled(NavLink)`
+  padding: 0.75rem 1rem;
+  color: ${({ theme }) => theme.primaryText};
+  text-decoration: none;
+  white-space: nowrap;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.accentColor}22;
+    color: ${({ theme }) => theme.accentColor};
+  }
+
+  &.active {
+    color: ${({ theme }) => theme.accentColor};
+    font-weight: bold;
   }
 `;
 
-const DropdownItem = styled.li`
-  padding: 0;
-
-  a {
-    display: block;
-    padding: 0.5rem 1rem;
-    color: #e6e6e6;
-    text-decoration: none;
-    transition: background 0.3s;
-
-    &:hover {
-      background-color: rgba(255, 255, 255, 0.1);
-    }
-  }
-
-  @media (max-width: 768px) {
-    a {
-      padding-left: 2rem;
-    }
-  }
-`;
 
 const NavBar = () => {
-  const [showBooksDropdown, setShowBooksDropdown] = useState(false);
-  const [showMoreDropdown, setShowMoreDropdown] = useState(false);
+  const[dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
 
+  // Cerrar el dropdown al hacer clic fuera
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
   return (
     <NavContainer>
       <StyledList>
         <ListItem>
-          <StyledNavLink to="/" exact="true" activeClassName="active">
-            <span>Home</span>
+          <StyledNavLink to="/" exact activeClassName="active">
+            <MobileIcon>
+              <FaHome />
+            </MobileIcon>
+            <NavText>Home</NavText>
           </StyledNavLink>
         </ListItem>
-
         <ListItem>
-          <StyledNavLink
-            as="div"
-            onClick={() => setShowBooksDropdown(!showBooksDropdown)}
-          >
-            <span>Books ▾</span>
+          <StyledNavLink to="/books" activeClassName="active">
+            <MobileIcon>
+              <FaBook />
+            </MobileIcon>
+            <NavText>Books</NavText>
           </StyledNavLink>
-          <DropdownMenu visible={showBooksDropdown}>
-            <DropdownItem>
-              <NavLink to="/books/6836456935899cfa20bf5017">
-                Fourth Wing
-              </NavLink>
-            </DropdownItem>
-            <DropdownItem>
-              <NavLink to="/books/6836456935899cfa20bf5018">Iron Flame</NavLink>
-            </DropdownItem>
-            <DropdownItem>
-              <NavLink to="/books/6836456935899cfa20bf5019">Onyx Storm</NavLink>
-            </DropdownItem>
-          </DropdownMenu>
         </ListItem>
-
         <ListItem>
           <StyledNavLink to="/characters" activeClassName="active">
-            <span>Characters</span>
+            <MobileIcon>
+              <FaUsers />
+            </MobileIcon>
+            <NavText>Characters</NavText>
           </StyledNavLink>
         </ListItem>
-
         <ListItem>
           <StyledNavLink to="/dragons" activeClassName="active">
-            <span>Dragons</span>
+            <MobileIcon>
+              <FaDragon />
+            </MobileIcon>
+            <NavText>Dragons</NavText>
           </StyledNavLink>
         </ListItem>
-
-        <ListItem>
+        <ListItem ref={dropdownRef}>
           <StyledNavLink
             as="div"
-            onClick={() => setShowMoreDropdown(!showMoreDropdown)}
+            onClick={() => setDropdownOpen(!dropdownOpen)}
           >
-            <span>More ▾</span>
+            <MobileIcon>
+              <FaEllipsisH />
+            </MobileIcon>
+            <NavText>More</NavText>
           </StyledNavLink>
-          <DropdownMenu visible={showMoreDropdown}>
-            <DropdownItem>
-              <NavLink to="/about">About</NavLink>
-            </DropdownItem>
-            <DropdownItem>
-              <NavLink to="/contact">Contact</NavLink>
-            </DropdownItem>
-          </DropdownMenu>
+          {dropdownOpen && (
+            <DropdownMenu>
+              <DropdownItem to="/signetQuiz" onClick={() => setDropdownOpen(false)}>
+                Signet Quiz
+              </DropdownItem>
+              <DropdownItem
+                to="/dragonQuiz"
+                onClick={() => setDropdownOpen(false)}
+              >
+                Dragon Quiz
+              </DropdownItem>
+            </DropdownMenu>
+          )}
         </ListItem>
       </StyledList>
     </NavContainer>

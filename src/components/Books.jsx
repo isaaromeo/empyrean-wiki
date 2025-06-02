@@ -3,22 +3,14 @@ import { useApiData } from "../hooks/useApiData";
 import { useNavigate } from "react-router-dom";
 
 const HomeContainer = styled.div`
-  width: 85%;
+ width: 85%;
   max-width: 1400px;
   justify-self: center;
-
+  
   padding: 2rem;
   background: ${({ theme }) => theme.containerBackground};
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-`;
-
-const Title = styled.h1`
-  font-size: 2.5rem;
-  color: ${({ theme }) => theme.primaryText};
-  text-align: center;
-  margin-bottom: 2rem;
-  font-family: "Cinzel";
 `;
 
 const Subtitle = styled.h2`
@@ -94,7 +86,7 @@ const FeaturedItem = styled.div`
   padding: 1.5rem;
   border-radius: 8px;
   border-left: 4px solid ${({ theme }) => theme.accentColor};
-
+  align-items:center;
   cursor: pointer;
   transition: transform 0.2s ease;
 
@@ -105,7 +97,7 @@ const FeaturedItem = styled.div`
 
 const FeaturedImage = styled.img`
   width: 60%;
-  height: 350px;
+  max-height: 370px;
   object-fit: cover;
   border-radius: 10px;
   margin-bottom: 1rem;
@@ -117,14 +109,12 @@ const FeaturedImage = styled.img`
 
 const BookMeta = styled.div`
   display: flex;
-  gap: 0.5rem;
   width: 40%;
-  height: 350px;
+  height: auto;
   margin-left: 1.2rem;
   flex-direction: column;
-  
   justify-content: space-evenly;
-  align-content: center;
+  align-items: center;
   overflow-x: hidden;
 
   @media (max-width: 500px) {
@@ -137,10 +127,11 @@ const MetaItem = styled.span`
   padding: 0.5rem 1rem;
   width: 80%;
   margin: 0.5rem;
+  
   border-radius: 20px;
   font-size: 0.9rem;
   color: ${({ theme }) => theme.tagText};
-  @media (max-width: 900px) {
+  @media (max-width: 700px) {
     font-size: 0.7rem;
     padding: 0.2rem 0.7rem;
     border-radius: 20px;
@@ -157,10 +148,9 @@ const Section = styled.section`
 
 const SectionTitle = styled.h2`
   font-size: 1.1rem;
-  margin-bottom: 1rem;
   color: ${({ theme }) => theme.sectionTitle};
   border-bottom: 2px solid ${({ theme }) => theme.borderColor};
-  padding-bottom: 0.5rem;
+
   
 `;
 
@@ -168,7 +158,6 @@ const GenreList = styled.div`
   display: flex;
   flex-wrap: wrap;
   width: 70%;
-  gap: 0.5rem;
   margin-top: 0.5rem;
   justify-content: center;
   justify-self: center;
@@ -183,7 +172,7 @@ const Genre = styled.span`
   border-radius: 20px;
   font-size: 0.9rem;
   color: ${({ theme }) => theme.primaryText};
-  @media (max-width: 900px) {
+  @media (max-width: 700px) {
     font-size: 0.7rem;
     padding: 0.2rem 0.7rem;
     border-radius: 20px;

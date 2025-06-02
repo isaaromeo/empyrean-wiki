@@ -6,13 +6,11 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Characters from './components/Characters.jsx';
 import Home from "./components/Home.jsx";
 import Books from "./components/Books.jsx";
-import Lore from './components/More.jsx';
 import Dragons from "./components/Dragons.jsx";
 import NotFound from "./components/NotFound.jsx";
-import CharacterDetail from "./components/CharacterDetail2.jsx";
-import DragonDetail from "./components/DragonDetail2.jsx";
+import CharacterDetail from "./components/CharacterDetail.jsx";
+import DragonDetail from "./components/DragonDetail.jsx";
 import BookDetail from "./components/BookDetail.jsx";
-import Quiz from "./styledComponents/Quiz2.jsx";
 import SignetQuiz from './components/SignetQuiz.jsx';
 import DragonQuiz from "./components/DragonQuiz.jsx";
 

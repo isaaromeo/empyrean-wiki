@@ -1,22 +1,29 @@
 import styled from "styled-components";
-import { useApiData } from "../hooks/useApiData.js";
+import { useApiData } from "../hooks/useApiData.jsx";
 import { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 
 const AppearancesContainer = styled.div`
   display: flex;
-  width: 60%;
+  width: 70%;
   margin: 2rem;
-  gap: 10px;
+  gap: 2rem;
   padding: 2rem;
   background: ${({ theme }) => theme.signetBackground};
   justify-content: space-around;
-  justify-self:center;
+  justify-self: center;
   border-radius: 8px;
   border: 2px solid ${({ theme }) => theme.borderColor};
+
+  @media (max-width: 700px) {
+    gap: 1rem;
+    padding: 1rem;
+    margin: 1rem;
+  }
 `;
 const BookContainer = styled.div`
   border-radius: 8px;
+  
   &:hover {
     transform: scale(1.02);
   }

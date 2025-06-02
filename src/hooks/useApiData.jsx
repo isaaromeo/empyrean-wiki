@@ -10,10 +10,10 @@ export function useApiData(apiUrl, cacheData) {
 
       try {
         const cache = localStorage.getItem(cacheData);
-
+        console.log("data cache", cache)
         if (cache) {
           const data = JSON.parse(cache);
-          //console.log(data)
+          console.log("if cache",data)
           setData(data);
           //return data;
         }

@@ -1,4 +1,4 @@
-import { useApiData } from "../hooks/useApiData.js";
+import { useApiData } from "../hooks/useApiData.jsx";
 import CardGrid from "../styledComponents/CardGrid.jsx";
 
 const Characters = () => {

@@ -1,11 +1,7 @@
 import styled from "styled-components";
-import { useElemInfo } from "../hooks/useElemInfoP";
-import { useApiData } from "../hooks/useApiData";
-import { useCharacterWithDragon } from "../hooks/useCharacterWithDragon";
+import { useElemInfo } from "../hooks/useElemInfo.jsx";
 import Rating from "../styledComponents/Rating";
 
-
-// Componentes de estilo
 const DetailContainer = styled.div`
   width: 85%;
   max-width: 1400px;
@@ -154,8 +150,8 @@ const BookDetail = () => {
   const { element: book, loading } = useElemInfo("book");
   console.log(book);
 
-  if (loading) return <div>Cargando...</div>;
-  if (!book) return <div>Book no encontrado</div>;
+  if (loading) return <div>Loading...</div>;
+  if (!book) return <div>Book not found</div>;
 
   const formatArray = (array) => {
     if (!array || array.length === 0) return "None";

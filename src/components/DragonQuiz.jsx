@@ -1,5 +1,5 @@
 
-import Quiz from "../styledComponents/Quiz2.jsx";
+import Quiz from "../styledComponents/Quiz.jsx";
 import {questions, answerToDragon} from "../data/dragonQuestions.js";
 
 const DragonQuiz = () => {
